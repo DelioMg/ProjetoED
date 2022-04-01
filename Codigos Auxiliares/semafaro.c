@@ -114,6 +114,7 @@ printf("semaforo 1 - Verde\n");
         ncarros2=0;
     }
     printf("%d carros na fila\n",ncarros2);//Listar carrros que estão na pilha2
+    
     if(c2 == 0){
     pcarro2= rand() % 30; // gerando valores aleatórios na faixa de 0 a 30 para tempo que proximo carro vai entrar na fila
     c2= pcarro2/5;
