@@ -1,8 +1,139 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
+#include <string.h>
+#include <time.h>
 #define tamanho 2
 #define MAX 10
 
+
+// tipo carro
+typedef struct tipo_carro{
+char marca[15];
+char cor[15];
+struct tipo_carro *prox;
+}Tcarro;
+
+Tcarro *inicio = NULL;
+Tcarro *fim = NULL;
+Tcarro *noatual = NULL;
+int tamFila;
+
+
+//inserir carro na fila
+void inserir(){
+Tcarro *novono;
+char marcal[15], corl[15];
+char *cores[4]   = {"Vermelho", "Branco","Cinza", "Preto"};
+char *carros[10] = {"Hb20","KA","Gol", "Palio","Mobi","Onix","Kwid","Argo","Uno","Renegade"};
+int corsoteada, carsorteado;
+
+        srand(time(NULL));
+        corsoteada = rand() % 4;
+        
+        carsorteado = rand() % 10;
+        
+	
+	//	printf("\nChegada de novo carro na fila\n");
+	//	printf("\nMarca do carro: ");
+		//fflush(stdin);
+		//gets(marcal);
+		*marcal = *carros[carsorteado];
+	//	printf("\nPlaca do carro: ");
+		//fflush(stdin);
+		//gets(placal);
+		*corl = *cores[corsoteada];
+	//	printf("O sorteado foi: %s\n", cores[corsoteada]);
+	//	printf("O sorteado foi: %s\n", carros[carsorteado]);
+
+		tamFila++;
+		
+		novono = (Tcarro *)malloc(sizeof(Tcarro));
+		strcpy(novono->marca, marcal);
+		strcpy(novono->cor, corl);
+		novono->prox = NULL;
+		
+		if(inicio == NULL){
+			inicio = novono;
+			fim = novono;
+		}else {
+			fim->prox = novono;
+			fim = novono;
+		}
+		
+	//	printf("\n\nInserido com sucesso!\n\n");
+}
+
+//consultar o primeiro da fila
+void consultarprimeiro(){
+
+printf("\nConsultar primeiro carro da fila\n\n");
+
+	if(inicio != NULL){
+		printf("\n\nmMarca		Placa\n");
+		printf("-------------------------------\n");
+		printf("%-15s		%-15s\n", inicio->marca, inicio->cor);
+		printf("-------------------------------\n");
+	}else {
+		printf("\nA fila está vazia!\n\n");
+	}
+}
+
+
+//remover o primeiro da fila
+void remover(){
+
+		printf("\nRetirar primeiro carro da fila\n");
+		noatual = inicio;
+		
+		if(noatual != NULL){
+			printf("\n\nMarca		Placa\n");
+			printf("-------------------------------\n");
+			printf("%-15s		%-15s\n", inicio->marca, inicio->cor);
+			printf("-------------------------------\n");
+			inicio = inicio->prox;
+			free(noatual);
+			tamFila--;
+			printf("\n\nRetirado da fila com sucesso!\n\n");
+			
+		}else{
+			printf("\n\nFila vazia!\n\n");
+		}	
+}
+
+//litaar os carros na fila
+void listar(){
+noatual = inicio;
+
+if(tamFila != 0){
+		printf("Modelo		Cor\n");
+		printf("-------------------------------\n");
+		
+		while(noatual != NULL){
+			printf("%-15s		%-15s\n", noatual->marca, noatual->cor);
+			noatual = noatual->prox;
+		}
+		
+		printf("-------------------------------\n");
+		printf("Quantidade de carro = %d.\n", tamFila);
+	}else{
+		printf("Nao tem nenhum carro na fila\n");
+	}
+}
+
+
+//liberar memoria da fila
+void limpafila(){
+	noatual = inicio;
+	
+	while(noatual != NULL){
+		inicio = noatual->prox;
+		free(noatual);
+		noatual = inicio;
+	}
+	
+	fim = NULL;
+}
 
 typedef struct tipo_pilha{
     int dados[2];
@@ -46,7 +177,7 @@ int topo(tipo_pilha *pilha){
  return aux;
 }
 
-int inicio(tipo_pilha *pilha){
+int inicio1(tipo_pilha *pilha){
     int aux;
     aux = pilha->dados[pilha->ini];
     pilha->ini++;
@@ -55,7 +186,7 @@ int inicio(tipo_pilha *pilha){
 
 int main(){
     int topo1, topo2, aux, contador=1;
-    int ncarros1=0, ncarros2=0;
+    int ncarros1=0, ncarros2=0, i=0;
     
     //inicializando com zero, os semafaros
     semafaro1.topo = 0;
@@ -63,13 +194,20 @@ int main(){
     semafaro2.topo = 0;
     semafaro2.ini = 0;
 
-    
+    srand(time(NULL));
     printf("\n        Programa Semafaro\n");
-    ncarros1= rand() % 6; // gerando valores aleatórios na faixa de 0 a 6 para numero de carros que tem na fila
-    //Inserir a quantidade ncarros1 na fila1
-    printf("%d carros na fila do semafaro 1\n",ncarros1);//Listar carrros que estão na fila1 
+   	printf("              Semafaro 1\n");//Listar carrros que estão na fila1 
     
-    ncarros2= rand() % 6; // gerando valores aleatórios na faixa de 0 a 6 para numero de carros que tem na fila
+	ncarros1= rand() % 6; // gerando valores aleatórios na faixa de 0 a 6 para numero de carros que tem na fila
+	while (i != ncarros1)
+	{
+		inserir();
+		i++;
+	}
+	listar(); 
+        
+    
+	ncarros2= rand() % 6; // gerando valores aleatórios na faixa de 0 a 6 para numero de carros que tem na fila
     //Inserir a quantidade ncarros2 na fila2
     printf("%d carros na fila do semafaro 2\n\n",ncarros2);//Listar carrros que estão na fila2
     
@@ -84,35 +222,38 @@ int main(){
     
     //semafaro 1 - verde
     if (topo1 == 1){
-    	printf("\n\nsemaforo 1 - Verde\n");
+    	printf("\nsemaforo 1 - Verde\n");
     	if(ncarros1 > 3){
         ncarros1= ncarros1 -3;
         }else {
           ncarros1=0;
         }
         printf("%d carros na fila\n",ncarros1);//Listar carrros que estão na pilha1 
+		listar();
         aux = rand() % 6;
            if((aux + ncarros1)<MAX){
 	        ncarros1= ncarros1 + aux;
     	    printf("%d Novo(s) carro(s) no semafaro 1\n", aux);
-    	    printf("Total de %d carros no semafaro 1\n", ncarros1);
-           }else {
+			inserir();
+			listar();
+    	    }else {
     	    ncarros1 = MAX;
-    	    printf("fila cheia de carros. %d carros no toal.\n",ncarros1);
+    	    printf("fila cheia de carros. %d carros no total.\n",ncarros1);
            }
     
     } else {
-    	printf("\n\nsemaforo 1 - Vermelho\n");
-    	printf("%d carros na fila\n",ncarros1);//Listar carrros que estão na pilha2
+    	printf("\nsemaforo 1 - Vermelho\n");
+		listar();
         aux = rand() % 6;
-     		if((aux + ncarros1)<MAX){
-		     ncarros1= ncarros1 + aux;
-    	  	 printf("%d Novo(s) carro(s) no semafaro 1\n", aux);
-    	     printf("Total de %d carros no semafaro 1\n", ncarros1);
-    		}else {
-    		ncarros1 = MAX;
-    		printf("fila cheia de carros. %d carros no total.\n",ncarros1);
-    		}
+           if((aux + ncarros1)<MAX){
+	        ncarros1= ncarros1 + aux;
+    	    printf("%d Novo(s) carro(s) no semafaro 1\n", aux);
+			inserir();
+			listar();
+    	    }else {
+    	    ncarros1 = MAX;
+    	    printf("fila cheia de carros. %d carros no total.\n",ncarros1);
+           }
     } //fim do semafaro 1
 
      //semafaro 1

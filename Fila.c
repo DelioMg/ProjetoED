@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 // tipo carro
 typedef struct tipo_carro{
@@ -20,15 +21,28 @@ int tamFila;
 void inserir(){
 Tcarro *novono;
 char marcal[15], placal[15];
+char *cores[4]   = {"Vermelho", "Branco","Cinza", "Preto"};
+char *carros[10] = {"Hb20","KA","Gol", "Palio","Mobi","Onix","Kwid","Argo","Uno","Renegade"};
+int corsoteada, carsorteado;
 
+        srand(time(NULL));
+        corsoteada = rand() % 4;
+        
+        carsorteado = rand() % 10;
+        
 	
 		printf("\nChegada de novo carro na fila\n");
 		printf("\nMarca do carro: ");
-		fflush(stdin);
-		gets(marcal);
+		//fflush(stdin);
+		//gets(marcal);
+		*marcal= carros[carsorteado];
 		printf("\nPlaca do carro: ");
-		fflush(stdin);
-		gets(placal);
+		//fflush(stdin);
+		//gets(placal);
+		*placal= cores[corsoteada];
+		printf("O sorteado foi: %s\n", cores[corsoteada]);
+		printf("O sorteado foi: %s\n", carros[carsorteado]);
+
 		tamFila++;
 		
 		novono = (Tcarro *)malloc(sizeof(Tcarro));
