@@ -23,39 +23,27 @@ Tcarro *noatual = NULL;
 int tamFila;
 
 
+
 //inserir carro na fila
 void inserir(){
 Tcarro *novono;
 char marcal[15], corl[15];
+int corsoteada, carsorteado;
 char *cores[4]   = {"Vermelho", "Branco","Cinza", "Preto"};
 char *carros[10] = {"Hb20","KA","Gol", "Palio","Mobi","Onix","Kwid","Argo","Uno","Renegade"};
-int corsoteada, carsorteado;
 
         srand(time(NULL));
         corsoteada = rand() % 4;
-        
         carsorteado = rand() % 10;
-        
-	
-	//	printf("\nChegada de novo carro na fila\n");
-	//	printf("\nMarca do carro: ");
-		//fflush(stdin);
-		//gets(marcal);
-		*marcal = *carros[carsorteado];
-	//	printf("\nPlaca do carro: ");
-		//fflush(stdin);
-		//gets(placal);
-		*corl = *cores[corsoteada];
-	//	printf("O sorteado foi: %s\n", cores[corsoteada]);
-	//	printf("O sorteado foi: %s\n", carros[carsorteado]);
-
-		tamFila++;
-		
+        	
+	   	
 		novono = (Tcarro *)malloc(sizeof(Tcarro));
-		strcpy(novono->marca, marcal);
-		strcpy(novono->cor, corl);
+		strcpy(novono->marca,carros[carsorteado]);
+		strcpy(novono->cor, cores[corsoteada]);
 		novono->prox = NULL;
 		
+		tamFila++;
+
 		if(inicio == NULL){
 			inicio = novono;
 			fim = novono;
@@ -86,18 +74,18 @@ printf("\nConsultar primeiro carro da fila\n\n");
 //remover o primeiro da fila
 void remover(){
 
-		printf("\nRetirar primeiro carro da fila\n");
+		
 		noatual = inicio;
 		
 		if(noatual != NULL){
-			printf("\n\nMarca		Placa\n");
-			printf("-------------------------------\n");
-			printf("%-15s		%-15s\n", inicio->marca, inicio->cor);
-			printf("-------------------------------\n");
+			//printf("\n\nMarca		Placa\n");
+			//printf("-------------------------------\n");
+			//printf("%-15s		%-15s\n", inicio->marca, inicio->cor);
+			//printf("-------------------------------\n");
 			inicio = inicio->prox;
 			free(noatual);
 			tamFila--;
-			printf("\n\nRetirado da fila com sucesso!\n\n");
+			printf("\n O carro %-15s %-15s passou no sinal \n", inicio->marca, inicio->cor);
 			
 		}else{
 			printf("\n\nFila vazia!\n\n");
@@ -188,7 +176,7 @@ int inicio1(tipo_pilha *pilha){
 }
 
 int main(){
-    int topo1, topo2, aux, contador=1;
+    int topo1, topo2, aux, i1, contador=1;
     int ncarros1=0, ncarros2=0, i=0;
     
     //inicializando com zero, os semafaros
@@ -203,6 +191,7 @@ int main(){
     
 	srand(time(NULL));
 	ncarros1= rand() % 6; // gerando valores aleatórios na faixa de 0 a 6 para numero de carros que tem na fila
+	
 	while (i != ncarros1)
 	{
 		inserir(sem1);
@@ -233,16 +222,20 @@ int main(){
     //semafaro 1 - verde
     if (topo1 == 1){
     	printf("\nsemaforo 1 - Verde\n");
-    	if(ncarros1 > 3){
-        ncarros1= ncarros1 -3;
-        }else {
-          ncarros1=0;
-        }
-        listar(sem1);
+		 remover(sem1);
+		 printf("Carros que ficaram");
+		 listar(sem1);
         aux = rand() % 6;
            if((aux + ncarros1)<MAX){
 	        ncarros1= ncarros1 + aux;
     	    printf("%d Novo(s) carro(s) no semafaro 1\n", aux);
+			i=0;
+			while (i<aux)
+			{
+				inserir(sem1);
+				i++;
+			}
+			
 			inserir(sem1);
 			printf("\n Total de carros\n");
 			listar(sem1);
@@ -281,11 +274,18 @@ int main(){
 		printf("-------------------------------\n");
     	printf("semaforo 2 - Verde\n");
     	if(ncarros2 > 3){
-          ncarros2= ncarros2 -3;
+           i=0;
+		   while(i>=3){
+			   remover(sem2);
+			   i++;
+		   }
         }else {
-          ncarros2=0;
-        }
-
+           i=ncarros2;
+		     while(i==0){
+			  remover(sem2);
+			  i--;
+		      }
+	    }
         listar(sem2);
         aux = rand() % 6;
         if((aux + ncarros2)<MAX){
