@@ -234,7 +234,7 @@ int main(){
 	        ncarros1= ncarros1 + aux;
     	    printf("%d Novo(s) carro(s) no semafaro 1\n", aux);
 			i=0;
-			while (i<aux)
+			while (i!=aux)
 			{
 				inserir(sem1);
 				i++;
@@ -254,7 +254,7 @@ int main(){
 	        ncarros1= ncarros1 + aux;
     	    printf("%d Novo(s) carro(s) no semafaro 1\n", aux);
 			i=0;
-			while (i<aux)
+			while (i!=aux)
 			{
 				inserir(sem1);
 				i++;
@@ -292,7 +292,7 @@ int main(){
 	      ncarros2= ncarros2 + aux;
     	  printf("%d Novo(s) carro(s) no semafaro 2\n", aux);
 			i=0;
-			while (i<aux)
+			while (i!=aux)
 			{
 				inserir(sem1);
 				i++;
