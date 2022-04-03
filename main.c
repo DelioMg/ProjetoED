@@ -26,9 +26,10 @@ char *cores[4]   = {"Vermelho", "Branco","Cinza", "Preto"};
 char *carros[10] = {"Hb20","KA","Gol", "Palio","Mobi","Onix","Kwid","Argo","Uno","Renegade"};
 int corsoteada, carsorteado;
 
-        srand(time(NULL));
+        srand( (unsigned)time(NULL) );
+        sleep(500);
         corsoteada = rand() % 4;
-        
+        sleep(500);
         carsorteado = rand() % 10;
         
 	
