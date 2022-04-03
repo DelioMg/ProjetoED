@@ -123,7 +123,19 @@ noatual = inicio;
 		printf("Nao tem nenhum carro na fila\n");
 	}
 }
-//inserir carro na fila
+//liberar memoria da fila
+void limpafila(){
+	noatual = inicio;
+	
+	while(noatual != NULL){
+		inicio = noatual->prox;
+		free(noatual);
+		noatual = inicio;
+	}
+	
+	fim2 = NULL;
+}
+//inserir carro na fila 2
 void inserir2(){
 Tcarro2 *novono2;
 char marcal2[15], corl2[15];
@@ -153,7 +165,7 @@ char *carros2[10] = {"Hb20","KA","Gol", "Palio","Mobi","Onix","Kwid","Argo","Uno
 		
 	//	printf("\n\nInserido com sucesso!\n\n");
 }
-//remover o primeiro da fila
+//remover o primeiro da fila 2
 void remover2(){
 
 		
@@ -169,7 +181,7 @@ void remover2(){
 			printf("\n\nFila vazia!\n\n");
 		}	
 }
-//litaar os carros na fila
+//listar os carros na fila 2
 void listar2(){
 noatual2 = inicio2;
 
@@ -183,12 +195,12 @@ if(tamFila2 != 0){
 		}
 		
         printf("---------------------------------------\n");
-		printf("Quantidade de carros na fila = %d.\n", tamFila);
+		printf("Quantidade de carros na fila = %d.\n", tamFila2);
 	}else{
 		printf("Nao tem nenhum carro na fila\n");
 	}
 }
-//liberar memoria da fila2
+//liberar memoria da fila2 2
 void limpafila2(){
 	noatual2 = inicio2;
 	
@@ -304,34 +316,31 @@ printf("\n        Programa Semafaro\n");
 
     
     aux = rand() % 6;
-    for (int i = 0; i < aux; i++)
+    if((aux + ncarros1)<MAX){
+	ncarros1= ncarros1 + aux;
+        for (int i = 0; i < aux; i++)
     {
 	  delay();
       inserir();
-    }
-    
-    if((aux + ncarros1)<MAX){
-	ncarros1= ncarros1 + aux;
-    	
+    }	
     	printf("\n%d Novo(s) carro(s) no semafaro 1\n", aux);
       printf("Total de carros no semafaro 1:\n");
       listar();
     }else {
     	ncarros1 = MAX;
-    	printf("fila cheia de carros. %d carros no toal.\n",ncarros1);
+    	printf("Fila cheia de carros. %d carros no total.\n",ncarros1);
     }
     
     } else {
     	printf("\n     Semaforo 1 - Vermelho\n");
-    	for (int i = 0; i < aux; i++)
+		aux = rand() % 6;
+    if((aux + ncarros1)<MAX){
+	ncarros1= ncarros1 + aux;
+    for (int i = 0; i < aux; i++)
     {
 	  delay();
       inserir();
     }
-    
-    if((aux + ncarros1)<MAX){
-	ncarros1= ncarros1 + aux;
-    	
     	printf("%d Novo(s) carro(s) no semafaro 1\n", aux);
       printf("Total de carros no semafaro 1:\n");
       listar();
@@ -366,13 +375,12 @@ printf("\n        Programa Semafaro\n");
         }
 
     aux = rand() % 6;
-      for (int i = 0; i < aux; i++)
+    if((aux + ncarros2)<MAX){
+		for (int i = 0; i < aux; i++)
        {
 		   delay();
 		   inserir2();
        }
-    
-       if((aux + ncarros2)<MAX){
 	      ncarros2= ncarros2 + aux;
     	 	printf("%d Novo(s) carro(s) no semafaro 1\n", aux);
         printf("Total de carros no semafaro 1:\n");
@@ -384,13 +392,12 @@ printf("\n        Programa Semafaro\n");
         } else {
     	printf("\n     semaforo 2 - Vermelho\n");
     	  aux = rand() % 6;
-      for (int i = 0; i < aux; i++)
+      if((aux + ncarros2)<MAX){
+		        for (int i = 0; i < aux; i++)
         {
 		 delay();
          inserir2();
         }
-    
-      if((aux + ncarros2)<MAX){
 	    ncarros2= ncarros2 + aux;
     	
     	printf("%d Novo(s) carro(s) no semafaro 1\n", aux);
@@ -426,13 +433,13 @@ printf("\n        Programa Semafaro\n");
 
     
     aux = rand() % 6;
-    for (int i = 0; i < aux; i++)
+    if((aux + ncarros1)<MAX){
+		    for (int i = 0; i < aux; i++)
     {
 	  delay();
       inserir();
     }
     
-    if((aux + ncarros1)<MAX){
 	ncarros1= ncarros1 + aux;
     	
     	printf("\n%d Novo(s) carro(s) no semafaro 1\n", aux);
@@ -445,12 +452,13 @@ printf("\n        Programa Semafaro\n");
     
     } else {
     	printf("\n     Semaforo 1 - Vermelho\n");
-    	for (int i = 0; i < aux; i++)
+	aux = rand() % 6;
+        
+    if((aux + ncarros1)<MAX){
+			for (int i = 0; i < aux; i++)
     {
       inserir();
     }
-    
-    if((aux + ncarros1)<MAX){
 	ncarros1= ncarros1 + aux;
     	
     	printf("%d Novo(s) carro(s) no semafaro 1\n", aux);
@@ -486,17 +494,16 @@ printf("\n        Programa Semafaro\n");
      ncarros2=0;
         }
 
-    aux = rand() % 6;
+       if((aux + ncarros2)<MAX){
+		       aux = rand() % 6;
       for (int i = 0; i < aux; i++)
        {
 		   delay();
       inserir2();
        }
-    
-       if((aux + ncarros2)<MAX){
 	      ncarros2= ncarros2 + aux;
-    	 	printf("%d Novo(s) carro(s) no semafaro 1\n", aux);
-        printf("Total de carros no semafaro 1:\n");
+    	 	printf("%d Novo(s) carro(s) no semafaro 2\n", aux);
+        printf("Total de carros no semafaro 2:\n");
         listar2();
     }else {
     	ncarros2 = MAX;
@@ -505,17 +512,15 @@ printf("\n        Programa Semafaro\n");
         } else {
     	printf("\n     semaforo 2 - Vermelho\n");
     	  aux = rand() % 6;
-      for (int i = 0; i < aux; i++)
+      if((aux + ncarros2)<MAX){
+		for (int i = 0; i < aux; i++)
         {
 		delay();
          inserir2();
         }
-    
-      if((aux + ncarros2)<MAX){
-	    ncarros2= ncarros2 + aux;
-    	
-    	printf("%d Novo(s) carro(s) no semafaro 1\n", aux);
-      printf("Total de carros no semafaro 1:\n");
+        ncarros2= ncarros2 + aux;
+       	printf("%d Novo(s) carro(s) no semafaro 2\n", aux);
+      printf("Total de carros no semafaro 2:\n");
       listar2(); 
     		}else {
     		ncarros2 = MAX;
@@ -528,4 +533,7 @@ printf("\n        Programa Semafaro\n");
 		printf("Interacao:%d\n", contador);
         printf("---------------------------------------\n");
 }
+getche();
+limpafila();
+limpafila2();
 }
