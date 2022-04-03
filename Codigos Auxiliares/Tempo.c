@@ -3,12 +3,15 @@
 #include<time.h>
 
 main(){
-int i;
+int i=0;
 	clock_t timer;
 	timer = clock();
 	
-	for(i=0 ; i<=50000; i++){
-		printf("%d", i);	
+	int sum=10;
+	while(i<=50000)
+	{
+		sum=sum/(i+1);
+		i++;	
 	}
 	
 	timer = clock() - timer;

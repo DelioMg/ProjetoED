@@ -2,9 +2,11 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 #include <time.h>
 #define tamanho 2
 #define MAX 10
+
 
 // tipo carro fila 1
 typedef struct tipo_carro{
@@ -18,8 +20,43 @@ Tcarro *fim = NULL;
 Tcarro *noatual = NULL;
 int tamFila;
 
+// tipo carro fila 2
+typedef struct tipo_carro2{
+char marca2[15];
+char cor2[15];
+struct tipo_carro2 *prox2;
+}Tcarro2;
 
-//inserir carro na fila
+
+Tcarro2 *inicio2 = NULL;
+Tcarro2 *fim2 = NULL;
+Tcarro2 *noatual2 = NULL;
+int tamFila2;
+
+typedef struct tipo_pilha{
+    int dados[2];
+    int ini;
+    int topo;
+}tipo_pilha;
+
+tipo_pilha semafaro1;
+tipo_pilha semafaro2;
+
+
+void delay(){
+   time_t start_t, end_t;
+   double diff_t;
+
+   //printf("Inicio do programa...\n");
+   time(&start_t);
+   while(diff_t<=0.500000){
+    time(&end_t);
+   diff_t = difftime(end_t, start_t);
+}
+
+   //printf("pronto passou 5 segundo\n");
+}
+//inserir carro na fila1
 void inserir(){
 Tcarro *novono;
 char *cores[4]   = {"Vermelho", "Branco","Cinza", "Preto"};
@@ -27,6 +64,7 @@ char *carros[10] = {"Hb20","KA","Gol", "Palio","Mobi","Onix","Kwid","Argo","Uno"
 int corsoteada, carsorteado;
 
         srand( (unsigned)time(NULL) );
+
         corsoteada = rand() % 4;
         carsorteado = rand() % 10;
         
@@ -48,7 +86,6 @@ int corsoteada, carsorteado;
 		
 
 }
-
 //remover o primeiro da fila
 void remover(){
 
@@ -56,17 +93,15 @@ void remover(){
 		noatual = inicio;
 		
 		if(noatual != NULL){
-
+            printf("Carro %-5s %-5s passou no sinal\n",inicio->modelo, inicio->cor);
 			inicio = inicio->prox;
 			free(noatual);
 			tamFila--;
-			printf("Carro %-5s %-5s passou no sinal\n",inicio->modelo, inicio->cor);
-			
+						
 		}else{
 			printf("\n\nFila vazia!\n\n");
 		}	
 }
-
 //litaar os carros na fila
 void listar(){
 noatual = inicio;
@@ -88,23 +123,6 @@ noatual = inicio;
 		printf("Nao tem nenhum carro na fila\n");
 	}
 }
-
-
-// tipo carro fila 2
-typedef struct tipo_carro2{
-char marca2[15];
-char cor2[15];
-struct tipo_carro2 *prox2;
-}Tcarro2;
-
-
-Tcarro2 *inicio2 = NULL;
-Tcarro2 *fim2 = NULL;
-Tcarro2 *noatual2 = NULL;
-int tamFila2;
-
-
-
 //inserir carro na fila
 void inserir2(){
 Tcarro2 *novono2;
@@ -135,7 +153,6 @@ char *carros2[10] = {"Hb20","KA","Gol", "Palio","Mobi","Onix","Kwid","Argo","Uno
 		
 	//	printf("\n\nInserido com sucesso!\n\n");
 }
-
 //remover o primeiro da fila
 void remover2(){
 
@@ -143,17 +160,15 @@ void remover2(){
 		noatual2 = inicio2;
 		
 		if(noatual2 != NULL){
-
+            printf("Carro %-5s %-5s passou no sinal\n",inicio2->marca2, inicio2->cor2);
 			inicio2 = inicio2->prox2;
 			free(noatual2);
 			tamFila2--;
-			printf("Carro %-5s %-5s passou no sinal\n",inicio2->marca2, inicio2->cor2);
-			
+						
 		}else{
 			printf("\n\nFila vazia!\n\n");
 		}	
 }
-
 //litaar os carros na fila
 void listar2(){
 noatual2 = inicio2;
@@ -173,9 +188,7 @@ if(tamFila2 != 0){
 		printf("Nao tem nenhum carro na fila\n");
 	}
 }
-
-
-//liberar memoria da fila
+//liberar memoria da fila2
 void limpafila2(){
 	noatual2 = inicio2;
 	
@@ -187,15 +200,6 @@ void limpafila2(){
 	
 	fim2 = NULL;
 }
-
-typedef struct tipo_pilha{
-    int dados[2];
-    int ini;
-    int topo;
-}tipo_pilha;
-
-tipo_pilha semafaro1;
-tipo_pilha semafaro2;
 
 void empilha(int elemento, tipo_pilha *pilha){
     if(pilha->topo == tamanho){
@@ -254,6 +258,7 @@ printf("\n        Programa Semafaro\n");
 	ncarros1= rand() % 10; // gerando valores aleatórios na faixa de 0 a 6 para numero de carros que tem na fila
 	for (int i = 0; i != ncarros1; i++)
 	{
+		delay();
 		inserir();
 	}
 	listar(); 
@@ -261,6 +266,7 @@ printf("\n        Programa Semafaro\n");
     ncarros2= rand() % 6; // gerando valores aleatórios na faixa de 0 a 6 para numero de carros que tem na fila
 	for (int i = 0; i != ncarros2; i++)
 	{
+		delay();
 		inserir2();
 	}
 	listar2(); 
@@ -274,7 +280,7 @@ printf("\n        Programa Semafaro\n");
     empilha(2, &semafaro1);
     empilha(1, &semafaro1);
        
-	    
+	   
     //semafaro 1
     //o que define o estado do semafaro 1, é o seu topo
     topo1 = topo(&semafaro1);
@@ -290,9 +296,9 @@ printf("\n        Programa Semafaro\n");
 		}
 		        }else {
          	for (int i = ncarros1; i !=0; i--)
-		        {
-			      remover();
-            }
+		    {
+		     remover();
+          }
      ncarros1=0;
         }
 
@@ -300,6 +306,7 @@ printf("\n        Programa Semafaro\n");
     aux = rand() % 6;
     for (int i = 0; i < aux; i++)
     {
+	  delay();
       inserir();
     }
     
@@ -318,6 +325,7 @@ printf("\n        Programa Semafaro\n");
     	printf("\n     Semaforo 1 - Vermelho\n");
     	for (int i = 0; i < aux; i++)
     {
+	  delay();
       inserir();
     }
     
@@ -332,7 +340,7 @@ printf("\n        Programa Semafaro\n");
     		printf("fila cheia de carros. %d carros no total.\n",ncarros1);
     		}
     } //fim do semafaro 1
-
+    
      //semafaro 1
     //o que define o estado do semafaro 1, é o seu topo
     
@@ -352,7 +360,7 @@ printf("\n        Programa Semafaro\n");
 		}else {
          	for (int i = ncarros2; i !=0; i--)
 		        {
-			      remover2();
+			     remover2();
             }
      ncarros2=0;
         }
@@ -360,7 +368,8 @@ printf("\n        Programa Semafaro\n");
     aux = rand() % 6;
       for (int i = 0; i < aux; i++)
        {
-      inserir2();
+		   delay();
+		   inserir2();
        }
     
        if((aux + ncarros2)<MAX){
@@ -377,6 +386,7 @@ printf("\n        Programa Semafaro\n");
     	  aux = rand() % 6;
       for (int i = 0; i < aux; i++)
         {
+		 delay();
          inserir2();
         }
     
@@ -406,7 +416,7 @@ printf("\n        Programa Semafaro\n");
 			remover();
       ncarros1--;
 		}
-		        }else {
+	      }else {
          	for (int i = ncarros1; i !=0; i--)
 		        {
 			      remover();
@@ -418,6 +428,7 @@ printf("\n        Programa Semafaro\n");
     aux = rand() % 6;
     for (int i = 0; i < aux; i++)
     {
+	  delay();
       inserir();
     }
     
@@ -478,6 +489,7 @@ printf("\n        Programa Semafaro\n");
     aux = rand() % 6;
       for (int i = 0; i < aux; i++)
        {
+		   delay();
       inserir2();
        }
     
@@ -495,6 +507,7 @@ printf("\n        Programa Semafaro\n");
     	  aux = rand() % 6;
       for (int i = 0; i < aux; i++)
         {
+		delay();
          inserir2();
         }
     
@@ -509,8 +522,10 @@ printf("\n        Programa Semafaro\n");
     		printf("fila cheia de carros. %d carros no total.\n",ncarros2);
     		}
     } //fim do semafaro 2
-	}
-	
   }
-  contador++;	
+    contador++;	
+  		printf("----------------------------------------\n");
+		printf("Interacao:%d\n", contador);
+        printf("---------------------------------------\n");
+}
 }
