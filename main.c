@@ -267,14 +267,15 @@ printf("\n        Programa Semafaro\n");
 	listar2(); 
 
 
+ for (int i = 0; i != 10; i++)
+    {
 
+    if (contador%2 != 0){    
     //inicializando a pilha do semafaro 1
     empilha(2, &semafaro1);
     empilha(1, &semafaro1);	     
     
-    for (int i = 0; i < 10; i++)
-    {
-   
+     
 	    
     //semafaro 1
     //o que define o estado do semafaro 1, é o seu topo
@@ -337,8 +338,11 @@ printf("\n        Programa Semafaro\n");
      //semafaro 1
     //o que define o estado do semafaro 1, é o seu topo
     
-    
-    empilha(desempilha(&semafaro1),&semafaro2);
+    }else{
+   empilha(1, &semafaro1);
+   empilha(2, &semafaro1); 
+
+   empilha(desempilha(&semafaro1),&semafaro2);
     
     topo2 = topo(&semafaro2);
     
@@ -393,5 +397,6 @@ printf("\n        Programa Semafaro\n");
     		printf("fila cheia de carros. %d carros no total.\n",ncarros2);
     		}
     } //fim do semafaro 2
+    }
    }
 }
