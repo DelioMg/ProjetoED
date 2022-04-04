@@ -233,13 +233,6 @@ int topo(tipo_pilha *pilha){
  return aux;
 }
 
-int inici(tipo_pilha *pilha){
-    int aux;
-    aux = pilha->dados[pilha->ini];
-    pilha->ini++;
- return aux;
-}
-
 int main(){
     int topo1, topo2, aux, contador=1, i;
     int ncarros1=0, ncarros2=0;
@@ -289,7 +282,7 @@ int main(){
     
     //semafaro 1 - verde
         if (topo1 == 1){
-    	    printf("\n     Semaforo 1 - Verde\n");
+    	    printf("\n     Semafaro 1 - Verde\n");
         	if(ncarros1 > 3){
                 for (i = 0; i < 3; i++)
 		        {
@@ -318,7 +311,7 @@ int main(){
             listar();
     
         } else {
-    	    printf("\n     Semaforo 1 - Vermelho\n");
+    	    printf("\n     Semafaro 1 - Vermelho\n");
 		    aux = rand() % 6;
             ncarros1= ncarros1 + aux;
             for (i = 0; i < aux; i++)
@@ -341,7 +334,7 @@ int main(){
     
      //semafaro 2 - verde
         if (topo2 == 1){
-        	printf("\n     Semaforo 2 - Verde\n");
+        	printf("\n     Semafaro 2 - Verde\n");
             if(ncarros2 > 3){
                 for (i = 0; i < 3; i++)
 		            {
@@ -368,7 +361,7 @@ int main(){
             listar2();
     
         } else {
-         	printf("\n     semaforo 2 - Vermelho\n");
+         	printf("\n     Semafaro 2 - Vermelho\n");
             aux = rand() % 6;
 		    for (i = 0; i < aux; i++)
                 {
@@ -390,7 +383,7 @@ int main(){
     
     //semafaro 1 - verde
         if (topo1 == 1){
-    	    printf("\n     Semaforo 1 - Verde\n");
+    	    printf("\n     Semafaro 1 - Verde\n");
         	if(ncarros1 > 3){
                 for (i = 0; i < 3; i++)
 	             	{
@@ -420,7 +413,7 @@ int main(){
             listar();
         
 		} else {
-        	printf("\n     Semaforo 1 - Vermelho\n");
+        	printf("\n     Semafaro 1 - Vermelho\n");
 	        aux = rand() % 6;
        		for (i = 0; i < aux; i++)
                 {
@@ -443,7 +436,7 @@ int main(){
     
         //semafaro 2 - verde
         if (topo2 == 1){
-        	printf("\n     Semaforo 2 - Verde\n");
+        	printf("\n     Semafaro 2 - Verde\n");
             if(ncarros2 > 3){
                 for (i = 0; i < 3; i++)
 		            {
@@ -471,7 +464,7 @@ int main(){
             listar2();
 
         } else {
-        	printf("\n     semaforo 2 - Vermelho\n");
+        	printf("\n     Semafaro 2 - Vermelho\n");
     	    aux = rand() % 6;
 		    for (i = 0; i < aux; i++)
                 {
