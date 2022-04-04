@@ -123,7 +123,7 @@ void limpafila(){
 		noatual = inicio;
 	}
 	
-	fim2 = NULL;
+	fim = NULL;
 }
 //inserir carro na fila 2
 void inserir2(){
